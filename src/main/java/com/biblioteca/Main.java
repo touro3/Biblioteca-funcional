@@ -10,7 +10,6 @@ import com.biblioteca.service.UsuarioService;
 import com.biblioteca.dao.AutorDAO;
 import com.biblioteca.dao.LivroDAO;
 import com.biblioteca.dao.UsuarioDAO;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
