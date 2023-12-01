@@ -39,9 +39,8 @@ public class Main {
         LivroDAO livroDao = new LivroDAO(connection);
         LivroService livroService = new LivroService(connection);
         AuthenticationService authService = new AuthenticationService(connection);
-        UsuarioService usuarioService = new UsuarioService(usuarioDAO);     // Carregar as configurações de conexão
-        // Assuming 'usuario' is an instance of the Usuario class
-        String tipoUsuarioMatricula = usuario.getTipoUsuarioMatricula();
+        UsuarioService usuarioService = new UsuarioService(usuarioDAO);
+        Usuario usuario = null;
 
         Properties properties = new Properties();
         try {
@@ -54,13 +53,14 @@ public class Main {
             livroService = new LivroService(connection);
             autorService = new AutorService(connection);
             System.out.println("Conexão estabelecida com sucesso.");
-            Usuario usuario = null;
+
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 System.out.println("1. Login");
                 System.out.println("2. Cadastrar novo usuário");
                 System.out.println("3. Sair");
                 System.out.print("Escolha uma opção: ");
+
                 int opcao = scanner.nextInt();
                 scanner.nextLine();
                 switch (opcao) {
@@ -70,9 +70,11 @@ public class Main {
                         System.out.print("Senha: ");
                         String senha = scanner.nextLine();
                         usuario = authService.authenticate(nickname, senha);
+
                         if (usuario != null) {
+                            //String tipoUsuarioMatricula = usuario.getTipoUsuarioMatricula();
                             System.out.println("Usuário autenticado com sucesso.");
-                            redirecionarParaMenu(tipoUsuario);
+                            redirecionarParaMenu(usuario,scanner);
                         } else {
                             System.out.println("Falha na autenticação. Tente novamente.");
                         }
