@@ -14,27 +14,29 @@ public class UsuarioDAO {
     }
 
     public void adicionarUsuario(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO usuarios (matricula, nome, tipo, data_contratacao) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (MatriculaUsuario, NomeUsuario, TipoUsuarioMatricula, TipoUsuario, DataContratacao) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, usuario.getMatriculaUsuario());
             statement.setString(2, usuario.getNomeUsuario());
             statement.setString(3, usuario.getTipoUsuarioMatricula());
-            statement.setDate(4, new java.sql.Date(usuario.getDataContratacao().getTime()));
+            statement.setInt(4, usuario.getTipoUsuario());
+            statement.setDate(5, new java.sql.Date(usuario.getDataContratacao().getTime()));
             statement.executeUpdate();
         }
     }
 
     public Usuario buscarUsuario(int matricula) throws SQLException {
-        String sql = "SELECT * FROM usuarios WHERE matricula = ?";
+        String sql = "SELECT * FROM usuario WHERE MatriculaUsuario = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, matricula);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return new Usuario(
-                            resultSet.getInt("matricula"),
-                            resultSet.getString("nome"),
-                            resultSet.getString("tipo"),
-                            resultSet.getDate("data_contratacao")
+                            resultSet.getInt("MatriculaUsuario"),
+                            resultSet.getString("NomeUsuario"),
+                            resultSet.getString("TipoUsuarioMatricula"),
+                            resultSet.getDate("DataContratacao"),
+                            resultSet.getInt("TipoUsuario")
                     );
                 }
             }
@@ -43,18 +45,19 @@ public class UsuarioDAO {
     }
 
     public void atualizarUsuario(Usuario usuario) throws SQLException {
-        String sql = "UPDATE usuarios SET nome = ?, tipo = ?, data_contratacao = ? WHERE matricula = ?";
+        String sql = "UPDATE usuario SET NomeUsuario = ?, TipoUsuarioMatricula = ?, TipoUsuario = ?, DataContratacao = ? WHERE MatriculaUsuario = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, usuario.getNomeUsuario());
             statement.setString(2, usuario.getTipoUsuarioMatricula());
-            statement.setDate(3, new java.sql.Date(usuario.getDataContratacao().getTime()));
-            statement.setInt(4, usuario.getMatriculaUsuario());
+            statement.setInt(3, usuario.getTipoUsuario());
+            statement.setDate(4, new java.sql.Date(usuario.getDataContratacao().getTime()));
+            statement.setInt(5, usuario.getMatriculaUsuario());
             statement.executeUpdate();
         }
     }
 
     public void removerUsuario(int matricula) throws SQLException {
-        String sql = "DELETE FROM usuarios WHERE matricula = ?";
+        String sql = "DELETE FROM usuario WHERE MatriculaUsuario = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, matricula);
             statement.executeUpdate();

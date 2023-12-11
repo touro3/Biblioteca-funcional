@@ -5,6 +5,7 @@ public class Autor {
     private String nome;
     private String nacionalidade;
 
+
     public Autor(int cpf, String nome, String nacionalidade) {
         this.cpf = cpf;
         this.nome = nome;

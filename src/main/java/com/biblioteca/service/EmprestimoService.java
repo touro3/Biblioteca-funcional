@@ -16,23 +16,21 @@ public class EmprestimoService {
 
     public void cadastrarEmprestimo(Emprestimo emprestimo) throws SQLException {
         emprestimoDAO.adicionarEmprestimo(emprestimo);
-        // Additional business logic can be implemented here
     }
 
     public Emprestimo consultarEmprestimo(int id) throws SQLException {
         return emprestimoDAO.consultarEmprestimo(id);
-        // Additional business logic can be implemented here
+
     }
 
     public void atualizarEmprestimo(Emprestimo emprestimo) throws SQLException {
         emprestimoDAO.atualizarEmprestimo(emprestimo);
-        // Additional business logic can be implemented here
     }
 
     public void excluirEmprestimo(int id) throws SQLException {
         emprestimoDAO.removerEmprestimo(id);
-        // Additional business logic can be implemented here
     }
-
-    // Additional methods as needed
+    public List<Emprestimo> consultarTodosEmprestimos() throws SQLException {
+        return emprestimoDAO.buscarTodosEmprestimos();
+    }
 }

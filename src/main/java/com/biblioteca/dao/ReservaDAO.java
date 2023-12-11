@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReservaDAO {
     private Connection connection;
@@ -59,4 +61,21 @@ public class ReservaDAO {
             statement.executeUpdate();
         }
     }
+    public List<Reserva> buscarTodasReservas() throws SQLException {
+        List<Reserva> reservas = new ArrayList<>();
+        String sql = "SELECT * FROM reserva";
+        try (PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                reservas.add(new Reserva(
+                        resultSet.getInt("IdReserva"),
+                        resultSet.getDate("DataReserva"),
+                        resultSet.getInt("ISBN"),
+                        resultSet.getInt("MatriculaUsuario")
+                ));
+            }
+        }
+        return reservas;
+    }
+
 }

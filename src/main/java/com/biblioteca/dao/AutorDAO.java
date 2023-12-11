@@ -57,4 +57,19 @@ public class AutorDAO {
         }
         return autores;
     }
+    public List<Autor> buscarTodosAutores() throws SQLException {
+        List<Autor> autores = new ArrayList<>();
+        String sql = "SELECT * FROM autor";
+        try (PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                autores.add(new Autor(
+                        resultSet.getInt("cpf"),
+                        resultSet.getString("nome"),
+                        resultSet.getString("nacionalidade")
+                ));
+            }
+        }
+        return autores;
+    }
 }

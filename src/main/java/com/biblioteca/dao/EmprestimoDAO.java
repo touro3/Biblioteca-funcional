@@ -3,6 +3,8 @@ package com.biblioteca.dao;
 import com.biblioteca.model.Emprestimo;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmprestimoDAO {
     private Connection connection;
@@ -62,4 +64,22 @@ public class EmprestimoDAO {
             statement.executeUpdate();
         }
     }
+    public List<Emprestimo> buscarTodosEmprestimos() throws SQLException {
+        List<Emprestimo> emprestimos = new ArrayList<>();
+        String sql = "SELECT * FROM emprestimo";
+        try (PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                emprestimos.add(new Emprestimo(
+                        resultSet.getInt("IdEmprestimo"),
+                        resultSet.getDate("DataEmprestimo"),
+                        resultSet.getDate("DataDevolucao"),
+                        resultSet.getInt("ISBN"),
+                        resultSet.getInt("MatriculaUsuario")
+                ));
+            }
+        }
+        return emprestimos;
+    }
+
 }

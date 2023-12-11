@@ -6,6 +6,7 @@ public class Livro {
     private int ano;
     private String editora;
     private String categoria;
+    private String autor;
 
     // Construtor com todos os campos
     public Livro(int isbn, String titulo, int ano, String editora, String categoria) {
@@ -62,15 +63,22 @@ public class Livro {
         this.categoria = categoria;
     }
 
-    // Método toString se você precisar de uma representação em String do Livro
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+    public String getAutor() {
+        return this.autor;
+    }
+
     @Override
     public String toString() {
         return "Livro{" +
                 "isbn=" + isbn +
-                ", titulo='" + titulo + '\'' +
+                ", título='" + titulo + '\'' +
                 ", ano=" + ano +
                 ", editora='" + editora + '\'' +
                 ", categoria='" + categoria + '\'' +
+                ", autor='" + autor + '\'' +
                 '}';
     }
 }

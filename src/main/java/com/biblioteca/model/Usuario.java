@@ -2,18 +2,22 @@ package com.biblioteca.model;
 
 import java.util.Date;
 
+import java.util.Date;
+
 public class Usuario {
     private int matriculaUsuario;
     private String nomeUsuario;
-    public String tipoUsuarioMatricula; // Isto pode ser um ID ou uma String do tipo de usuário
+    private String tipoUsuarioMatricula; // Professor, aluno ou funcionário
+    private int tipoUsuario; // Chave estrangeira para a tabela tipoUsuario
     private Date dataContratacao;
 
-    // Construtor
-    public Usuario(int matriculaUsuario, String nomeUsuario, String tipoUsuarioMatricula, Date dataContratacao) {
+    // Construtor atualizado
+    public Usuario(int matriculaUsuario, String nomeUsuario, String tipoUsuarioMatricula, Date dataContratacao, int tipoUsuario) {
         this.matriculaUsuario = matriculaUsuario;
         this.nomeUsuario = nomeUsuario;
         this.tipoUsuarioMatricula = tipoUsuarioMatricula;
         this.dataContratacao = dataContratacao;
+        this.tipoUsuario = tipoUsuario;
     }
 
     // Getters e Setters
@@ -41,6 +45,14 @@ public class Usuario {
         this.tipoUsuarioMatricula = tipoUsuarioMatricula;
     }
 
+    public int getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(int tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
     public Date getDataContratacao() {
         return dataContratacao;
     }
@@ -49,5 +61,4 @@ public class Usuario {
         this.dataContratacao = dataContratacao;
     }
 
-    // Você pode adicionar mais métodos aqui conforme necessário
 }
